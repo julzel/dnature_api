@@ -1,6 +1,7 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -16,13 +17,19 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
-  @Get('facebook')
-  @UseGuards(AuthGuard('facebook'))
-  async facebookAuth() {}
+  // @Get('facebook')
+  // @UseGuards(AuthGuard('facebook'))
+  // async facebookAuth() {}
 
-  @Get('facebook/callback')
-  @UseGuards(AuthGuard('facebook'))
-  async facebookAuthRedirect(@Req() req) {
-    return this.authService.login(req.user);
+  // @Get('facebook/callback')
+  // @UseGuards(AuthGuard('facebook'))
+  // async facebookAuthRedirect(@Req() req) {
+  //   return this.authService.login(req.user);
+  // }
+
+  @Get('profile')
+  @UseGuards(JwtAuthGuard)
+  getProfile(@Req() req) {
+    return req.user;
   }
 }
