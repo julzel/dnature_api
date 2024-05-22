@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-// import { VeterinariansService } from './veterinarian.service';
-// import { VeterinariansController } from './veterinarian.controller';
+import { VeterinarianService } from './veterinarian.service';
+import { VeterinarianController } from './veterinarian.controller';
 import {
   Veterinarian,
   VeterinarianSchema,
@@ -13,7 +13,7 @@ import {
       { name: Veterinarian.name, schema: VeterinarianSchema },
     ]),
   ],
-  // providers: [VeterinariansService],
-  // controllers: [VeterinariansController],
+  providers: [VeterinarianService],
+  controllers: [VeterinarianController],
 })
-export class VeterinariansModule {}
+export class VeterinarianModule {}
