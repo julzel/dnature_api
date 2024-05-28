@@ -1,4 +1,4 @@
-# DNature Restful API
+# DNature API
 
 This project is a NestJS-based RESTful API for the DNature online store. It provides functionality for user authentication, user profiles, pet profiles, veterinarian profiles, and tracking user purchases.
 
