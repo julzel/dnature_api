@@ -1,25 +1,23 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { UserModule } from './features/user/user.module';
-import { PetModule } from './features/pet/pet.module';
-import { VeterinarianModule } from './features/veterinarian/veterinarian.module';
-import { AuthModule } from './features/auth/auth.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true,
+      isGlobal: true, // Makes the configuration globally available
     }),
     MongooseModule.forRoot(process.env.DATABASE_URI),
-    UserModule,
-    PetModule,
-    VeterinarianModule,
-    AuthModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true, // Automatically generates the GraphQL schema file
+    }),
+    AuthModule, // Import the authentication module
+    UserModule, // Import the user module
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
